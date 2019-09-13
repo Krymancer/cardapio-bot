@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+labels = [':cut_of_meat: OPÇÃO 01', ':poultry_leg: OPÇÃO 02', ':broccoli: VEGETARIANO', ':green_salad: SALADA',
+          ':spaghetti: GUARNIÇÃO', ':rice: ACOMPANHAMENTOS', ':tangerine: SOBREMESA']
+
 
 def getMenu():
     r = requests.get('http://www.sobral.ufc.br/ru/cardapio/')
@@ -10,6 +13,9 @@ def getMenu():
 
     almoco_data = []
     jantar_data = []
+
+    for br in soup.find_all('br'):  # Textos nos acompanhamentos são separados por <br>
+        br.replace_with(' / ')
 
     almoco = tables[0].find_all('tr')
     jantar = tables[1].find_all('tr')
@@ -26,25 +32,22 @@ def getMenu():
 
     return almoco_data, jantar_data
 
+
 def getTodayDishes(date):
-    almoco,jantar = getMenu()
-    almoco_dishes = []
-    jantar_dishes = []
+    almoco, jantar = getMenu()
 
-    i = -1
-    for index,col in enumerate(almoco[0]):
-        if col == date:
-            i = index
+    i = almoco[0].index(date)
 
-    for dishes in almoco[1:]:
-        almoco_dishes.append(dishes[i])
+    almoco_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+                     for dishes in almoco[1:]]
 
-    for dishes in jantar[1:]:
-        jantar_dishes.append(dishes[i])
+    jantar_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+                     for dishes in jantar[1:]]
 
-    return almoco_dishes,jantar_dishes
+    return {'almoco': dict(zip(labels, almoco_dishes)),
+            'janta': dict(zip(labels, jantar_dishes))}
 
 
-def getDateHour():
+def getDate():
     today = datetime.today()
-    return today.strftime('%d/%m')#, today.strftime('%H:%M')
+    return today.strftime('%d/%m')
