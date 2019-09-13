@@ -6,9 +6,9 @@ labels = [':cut_of_meat: OPÇÃO 01', ':poultry_leg: OPÇÃO 02', ':broccoli: VE
           ':spaghetti: GUARNIÇÃO', ':rice: ACOMPANHAMENTOS', ':tangerine: SOBREMESA']
 
 
-def getMenu():
+def get_menu():
     r = requests.get('http://www.sobral.ufc.br/ru/cardapio')
-    
+
     if r.status_code != 200:
         print('Error: cant get data from site')
         return
@@ -38,11 +38,11 @@ def getMenu():
     return lunch_data, dinner_data
 
 
-def getTodayDishes(date):
-    menu = getMenu()
-    if  menu == None:
-        return
-    
+def get_today_dishes(date):
+    menu = get_menu()
+    if menu is None:
+        return None
+
     almoco, jantar = menu
 
     try:
@@ -52,19 +52,19 @@ def getTodayDishes(date):
                         for dishes in almoco[1:]]
 
         dinner_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
-                        for dishes in jantar[1:]]
+                         for dishes in jantar[1:]]
 
         return {'almoco': dict(zip(labels, lunch_dishes)),
                 'janta': dict(zip(labels, dinner_dishes))}
-
     except ValueError:
-        print('Error: no dishes for',date)
+        print('Error: no dishes for', date)
 
 
-def getDate():
+def get_date():
     today = datetime.today()
     return today.strftime('%d/%m')
 
-def getHour():
+
+def get_hour():
     today = datetime.today()
     return today.strftime('%H:%M')
