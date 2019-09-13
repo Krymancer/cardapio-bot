@@ -19,6 +19,11 @@ def onChatMessage(msg):
                 if chatid not in users:
                     users.append(chatid)
                     # Aqui haveria uma parte de persistência do chatid, assumindo que o user deseja receber as notificações
+            elif '/send' in command:
+                    date, _ = getDateHour()
+                    lunch, dinner = getTodayDishes(date)
+                    sendMessage(chatid, lunch)
+                    sendMessage(chatid, dinner)
             else:
                 sendMessage(chatid, ':disappointed_relieved: Desculpe, não entendi o que você me falou.')
         else:  # Caso seja enviado mensagens de tipos diferentes de 'text'
@@ -40,7 +45,8 @@ markup = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Confi
 
 def watchHours():
     date, hour = getDateHour()
-    lunchTable, dinnerTable = getMenu(date)
+    lunchTable, dinnerTable = getMenu()
+    lunch, dinner = getTodayDishes(date)
     if hour == '11:00':
         # Envia a todos os usuários cadastrados
         for chatid in users:

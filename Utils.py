@@ -8,43 +8,43 @@ def getMenu():
     soup = BeautifulSoup(r.text, 'html.parser')
     tables = soup.find_all('tbody')
 
-    almoco_data = []
-    jantar_data = []
+    lunch_data = []
+    dinner_data = []
 
-    almoco = tables[0].find_all('tr')
-    jantar = tables[1].find_all('tr')
+    lunch = tables[0].find_all('tr')
+    dinner = tables[1].find_all('tr')
 
-    for row in almoco:
+    for row in lunch:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        almoco_data.append([ele for ele in cols if ele])
+        lunch_data.append([ele for ele in cols if ele])
 
-    for row in jantar:
+    for row in dinner:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        jantar_data.append([ele for ele in cols if ele])
+        dinner_data.append([ele for ele in cols if ele])
 
-    return almoco_data, jantar_data
+    return lunch_data, dinner_data
 
 def getTodayDishes(date):
-    almoco,jantar = getMenu()
-    almoco_dishes = []
-    jantar_dishes = []
+    lunch,dinner = getMenu()
+    lunch_dishes = []
+    dinner_dishes = []
 
     i = -1
-    for index,col in enumerate(almoco[0]):
+    for index,col in enumerate(lunch[0]):
         if col == date:
             i = index
 
-    for dishes in almoco[1:]:
-        almoco_dishes.append(dishes[i])
+    for dishes in lunch[1:]:
+        lunch_dishes.append(dishes[i])
 
-    for dishes in jantar[1:]:
-        jantar_dishes.append(dishes[i])
+    for dishes in dinner[1:]:
+        dinner_dishes.append(dishes[i])
 
-    return almoco_dishes,jantar_dishes
+    return lunch_dishes,dinner_dishes
 
 
 def getDateHour():
     today = datetime.today()
-    return today.strftime('%d/%m')#, today.strftime('%H:%M')
+    return today.strftime('%d/%m'), today.strftime('%H:%M')
