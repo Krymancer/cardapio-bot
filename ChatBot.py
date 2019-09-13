@@ -11,6 +11,7 @@ users = []
 # A Fazeres:
 # - Colocar os botões de ações do bot na conversa.
 # - Novas features: como por exemplo notificação automatizada.
+# - Corrigir problema de fim de semana
 
 
 def onChatMessage(msg):

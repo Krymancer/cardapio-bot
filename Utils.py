@@ -11,26 +11,26 @@ def getMenu():
     soup = BeautifulSoup(r.text, 'html.parser')
     tables = soup.find_all('tbody')
 
-    almoco_data = []
-    jantar_data = []
+    lunchData = []
+    dinnerData = []
 
     for br in soup.find_all('br'):  # Textos nos acompanhamentos são separados por <br>
         br.replace_with(' / ')
 
-    almoco = tables[0].find_all('tr')
-    jantar = tables[1].find_all('tr')
+    lunch = tables[0].find_all('tr')
+    dinner = tables[1].find_all('tr')
 
-    for row in almoco:
+    for row in lunch:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        almoco_data.append([ele for ele in cols if ele])
+        lunchData.append([ele for ele in cols if ele])
 
-    for row in jantar:
+    for row in dinner:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        jantar_data.append([ele for ele in cols if ele])
+        dinnerData.append([ele for ele in cols if ele])
 
-    return almoco_data, jantar_data
+    return lunchData, dinnerData
 
 
 def getTodayDishes(date):
@@ -38,14 +38,14 @@ def getTodayDishes(date):
 
     i = almoco[0].index(date)
 
-    almoco_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+    lunchDishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
                      for dishes in almoco[1:]]
 
-    jantar_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+    dinnerDishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
                      for dishes in jantar[1:]]
 
-    return {'almoco': dict(zip(labels, almoco_dishes)),
-            'janta': dict(zip(labels, jantar_dishes))}
+    return {'almoco': dict(zip(labels, lunchDishes)),
+            'janta': dict(zip(labels, dinnerDishes))}
 
 
 def getDate():
