@@ -40,9 +40,8 @@ def onChatMessage(msg):
 
 def sendMenu(chatid, typeof):
     dishes = getTodayDishes(getDate())
-
     if dishes == None:
-        msg = ':sweat_smile: Desculpe mas não tem cardápio pra mostrar hoje'
+        msg = ':sweat_smile: Desculpe mas não tem cardápio pra mostrar hoje, ou o site esta fora do ar? :thinking_face:'
         sendMessage(chatid, msg)
         return
     

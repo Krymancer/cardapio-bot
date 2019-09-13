@@ -7,7 +7,12 @@ labels = [':cut_of_meat: OPÇÃO 01', ':poultry_leg: OPÇÃO 02', ':broccoli: VE
 
 
 def getMenu():
-    r = requests.get('http://www.sobral.ufc.br/ru/cardapio/')
+    r = requests.get('http://www.sobral.ufc.br/ru/cardapio')
+    
+    if r.status_code != 200:
+        print('Error: cant get data from site')
+        return
+
     soup = BeautifulSoup(r.text, 'html.parser')
     tables = soup.find_all('tbody')
 
@@ -32,10 +37,15 @@ def getMenu():
 
     return lunch_data, dinner_data
 
-def getTodayDishes(date):
-    try:
-        almoco, jantar = getMenu()
 
+def getTodayDishes(date):
+    menu = getMenu()
+    if  menu == None:
+        return
+    
+    almoco, jantar = menu
+
+    try:
         i = almoco[0].index(date)
 
         lunch_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
