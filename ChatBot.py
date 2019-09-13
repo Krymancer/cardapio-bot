@@ -40,6 +40,12 @@ def onChatMessage(msg):
 
 def sendMenu(chatid, typeof):
     dishes = getTodayDishes(getDate())
+
+    if dishes == None:
+        msg = ':sweat_smile: Desculpe mas não tem cardápio pra mostrar hoje'
+        sendMessage(chatid, msg)
+        return
+    
     default = ' \n:heavy_exclamation_mark: Contém LEITE/LACTOSE\n:bangbang: Contém GLÚTEN'
 
     text = f':stew: *{typeof.upper()} ({getDate()}):*\n'

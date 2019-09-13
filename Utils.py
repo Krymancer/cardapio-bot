@@ -11,8 +11,8 @@ def getMenu():
     soup = BeautifulSoup(r.text, 'html.parser')
     tables = soup.find_all('tbody')
 
-    lunchData = []
-    dinnerData = []
+    lunch_data = []
+    dinner_data = []
 
     for br in soup.find_all('br'):  # Textos nos acompanhamentos são separados por <br>
         br.replace_with(' / ')
@@ -23,31 +23,38 @@ def getMenu():
     for row in lunch:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        lunchData.append([ele for ele in cols if ele])
+        lunch_data.append([ele for ele in cols if ele])
 
     for row in dinner:
         cols = row.find_all('td')
         cols = [ele.text.strip() for ele in cols]
-        dinnerData.append([ele for ele in cols if ele])
+        dinner_data.append([ele for ele in cols if ele])
 
-    return lunchData, dinnerData
-
+    return lunch_data, dinner_data
 
 def getTodayDishes(date):
-    almoco, jantar = getMenu()
+    try:
+        almoco, jantar = getMenu()
 
-    i = almoco[0].index(date)
+        i = almoco[0].index(date)
 
-    lunchDishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
-                     for dishes in almoco[1:]]
+        lunch_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+                        for dishes in almoco[1:]]
 
-    dinnerDishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
-                     for dishes in jantar[1:]]
+        dinner_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
+                        for dishes in jantar[1:]]
 
-    return {'almoco': dict(zip(labels, lunchDishes)),
-            'janta': dict(zip(labels, dinnerDishes))}
+        return {'almoco': dict(zip(labels, lunch_dishes)),
+                'janta': dict(zip(labels, dinner_dishes))}
+
+    except ValueError:
+        print('Error: no dishes for',date)
 
 
 def getDate():
     today = datetime.today()
     return today.strftime('%d/%m')
+
+def getHour():
+    today = datetime.today()
+    return today.strftime('%H:%M')
