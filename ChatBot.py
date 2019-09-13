@@ -20,10 +20,10 @@ def onChatMessage(msg):
                     users.append(chatid)
                     # Aqui haveria uma parte de persistência do chatid, assumindo que o user deseja receber as notificações
             elif '/send' in command:
-                    date, _ = getDateHour()
+                    date, hour = getDateHour()
                     lunch, dinner = getTodayDishes(date)
-                    sendMessage(chatid, lunch)
-                    sendMessage(chatid, dinner)
+                    print(lunch[0],dinner[0].rstrip('*/'))
+                    sendMessage(chatid, lunch[0],dinner[0].rstrip('*/'))
             else:
                 sendMessage(chatid, ':disappointed_relieved: Desculpe, não entendi o que você me falou.')
         else:  # Caso seja enviado mensagens de tipos diferentes de 'text'
