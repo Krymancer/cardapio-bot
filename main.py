@@ -1,5 +1,4 @@
 from utils import *
-from config import API_KEY_TelegramBot
 from time import sleep
 from telepot import Bot, glance
 from telepot.loop import MessageLoop
@@ -7,6 +6,8 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 from emoji import emojize
 
 users = []
+
+API_KEY_TelegramBot = '885455836:AAEeegc3w5BQNNhhu8vrS61Q04XpamLSlxQ'
 
 # A Fazeres:
 # - Colocar os botões de ações do bot na conversa.
