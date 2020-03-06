@@ -42,25 +42,16 @@ def get_today_dishes(date):
     menu = get_menu()
     if menu is None:
         return None
-
-    from pprint import pprint
-    pprint(menu)
-
-    #almoco, jantar = menu
-    almoco = menu[0]
-    jatar = menu[1]
-    almojoformated,jantarformated = []
+    almoco,jantar = menu
+    
+    almojoformated = []
 
     for item in almoco[0]:
         almojoformated.append(item[:5])
 
-    for item in jantar[0]:
-        jantarformated.append(item[:5])
-    
-    print("format",almojoformated[0])
     try:
 
-        i = almojoformated[0].index(date)
+        i = almojoformated.index(date)
 
         lunch_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
                         for dishes in almoco[1:]]
