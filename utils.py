@@ -47,8 +47,15 @@ def get_today_dishes(date):
 
     almoco, jantar = menu
 
+    for item in almoco[0]:
+        item = item[:5]
+
+    for item in jantar[0]:
+        item = item[:5]
+    
     try:
-        i = almoco[0].index(date,end=4)
+
+        i = almoco[0].index(date)
 
         lunch_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
                         for dishes in almoco[1:]]
