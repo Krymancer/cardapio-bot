@@ -40,9 +40,11 @@ def get_menu():
 
 def get_today_dishes(date):
     menu = get_menu()
-    print(menu)
     if menu is None:
         return None
+        
+    from pprint import pprint
+    pprint(menu)
 
     almoco, jantar = menu
     almojoformated,jantarformated = []
