@@ -35,8 +35,6 @@ def get_menu():
         cols = [ele.text.strip() for ele in cols]
         dinner_data.append([ele for ele in cols if ele])
 
-    print(lunch_data)
-
     return lunch_data, dinner_data
 
 
