@@ -46,17 +46,18 @@ def get_today_dishes(date):
         return None
 
     almoco, jantar = menu
+    almojoformated,jantarformated = []
 
     for item in almoco[0]:
-        item = item[:5]
+        almojoformated.append(item[:5])
 
     for item in jantar[0]:
-        item = item[:5]
+        jantarformated.append(item[:5])
     
-    print("format",almoco[0])
+    print("format",almojoformated[0])
     try:
 
-        i = almoco[0].index(date)
+        i = almojoformated[0].index(date)
 
         lunch_dishes = [dishes[i].replace('**', ':heavy_exclamation_mark:').replace('*', ':bangbang:')
                         for dishes in almoco[1:]]
