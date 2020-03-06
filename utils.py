@@ -53,7 +53,7 @@ def get_today_dishes(date):
     for item in jantar[0]:
         item = item[:5]
     
-    print(almoco[0])
+    print("format",almoco[0])
     try:
 
         i = almoco[0].index(date)
