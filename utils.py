@@ -40,6 +40,7 @@ def get_menu():
 
 def get_today_dishes(date):
     menu = get_menu()
+    print(menu)
     if menu is None:
         return None
 

@@ -36,6 +36,7 @@ def on_chat_message(msg):
             send_message(chat_id, ':pensive: Desculpe, ainda não fui preparado para receber este tipo de mensagem.')
     except Exception as error:
         send_message(chat_id, ':disappointed_relieved: Desculpe, ocorreu um erro ainda não tratado.')
+        print(error)
         print(f'Ocorreu um erro ainda não tratado: {error}')
 
 
