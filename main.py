@@ -41,7 +41,6 @@ def on_chat_message(msg):
 
 def send_menu(chat_id, typeof):
     dishes = get_today_dishes(get_date())
-    print(dishes)
     if dishes is None:
         send_message(chat_id, ':sweat_smile: Desculpe mas não tem cardápio pra mostrar hoje, ou o site esta fora do ar? :thinking_face:')
     else:
