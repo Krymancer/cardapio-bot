@@ -8,7 +8,7 @@ Se você por algum motivo quiser rodar esse codigo, vai precisar das seguintes d
 
     BeatifulSoup, telepot, emoji
 
-Você pode instalalas com:
+Você pode instalar com:
     
     python3 -m pip install --requirement requirements.txt
     
