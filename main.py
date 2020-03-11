@@ -7,7 +7,6 @@ from emoji import emojize, demojize
 
 API_KEY_TelegramBot = '885455836:AAEeegc3w5BQNNhhu8vrS61Q04XpamLSlxQ'
 
-
 users = []
 
 # A Fazeres:
@@ -24,7 +23,7 @@ def on_chat_message(msg):
                 users.append(chat_id)
 
             command = msg['text']
-            if '/start' in command or '/help' in command:  # Resposta de ajuda
+            if 'start' in command or 'help' in command:  # Resposta de ajuda
                 markup = ReplyKeyboardMarkup(keyboard=[[emojize(':spaghetti: Almoço', use_aliases=True), emojize(':stew: Janta', use_aliases=True)]])
                 send_message(chat_id, f'Olá {msg["from"]["first_name"]}, *seja bem vido*! :thumbsup:', reply_markup=markup)
                 if chat_id not in users:
