@@ -28,7 +28,7 @@ def on_chat_message(msg):
                     users.append(chat_id)
                     # Aqui haveria uma parte de persistência do chat_id, assumindo que o user deseja receber as notificações
             elif 'almoco' in command.lower().replace('ç', 'c') or 'janta' in command.lower():  # TA para entrada pelos botões customizados
-                send_menu(chat_id, command.lower().replace('ç', 'c').replace('/', '')[command.rfind(':')+1:].strip())
+                send_menu(chat_id, demojize(command).lower().replace('ç', 'c').replace('/', '')[command.rfind(':')+1:].strip())
             else:
                 send_message(chat_id, ':disappointed_relieved: Desculpe, não entendi o que você me falou.')
         else:  # Caso seja enviado mensagens de tipos diferentes de 'text'
