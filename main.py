@@ -5,6 +5,9 @@ from telepot.loop import MessageLoop
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from emoji import emojize, demojize
 
+API_KEY_TelegramBot = '885455836:AAEeegc3w5BQNNhhu8vrS61Q04XpamLSlxQ'
+
+
 users = []
 
 # A Fazeres:
@@ -60,7 +63,7 @@ def send_message(chat_id, text, markup=None, action=True):  # Função de envio 
 
 button = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Confira no site.', url='http://www.sobral.ufc.br/ru/cardapio/')]])
 
-bot = Bot(process.env.API_KEY_TelegramBot)
+bot = Bot(API_KEY_TelegramBot)
 MessageLoop(bot, on_chat_message).run_as_thread()
 
 # print(bot.getMe())
