@@ -7,8 +7,6 @@ from emoji import emojize
 
 users = []
 
-API_KEY_TelegramBot = '885455836:AAEeegc3w5BQNNhhu8vrS61Q04XpamLSlxQ'
-
 # A Fazeres:
 # - Colocar os botões de ações do bot na conversa.
 # - Novas features: como por exemplo notificação automatizada.
