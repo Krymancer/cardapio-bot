@@ -5,8 +5,6 @@ from telepot.loop import MessageLoop
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from emoji import emojize, demojize
 
-API_KEY_TelegramBot = '885455836:AAEeegc3w5BQNNhhu8vrS61Q04XpamLSlxQ'
-
 users = []
 
 # A Fazeres:
