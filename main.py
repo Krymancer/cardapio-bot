@@ -2,8 +2,8 @@ from utils import *
 from time import sleep
 from telepot import Bot, glance
 from telepot.loop import MessageLoop
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from emoji import emojize
+from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from emoji import emojize, demojize
 
 users = []
 
@@ -22,12 +22,13 @@ def on_chat_message(msg):
 
             command = msg['text']
             if '/start' in command or '/help' in command:  # Resposta de ajuda
-                send_message(chat_id, f'Olá {msg["from"]["first_name"]}, *seja bem vido*! :thumbsup:')
+                markup = ReplyKeyboardMarkup(keyboard=[[emojize(':spaghetti: Almoço', use_aliases=True), emojize(':stew: Janta', use_aliases=True)]])
+                send_message(chat_id, f'Olá {msg["from"]["first_name"]}, *seja bem vido*! :thumbsup:', reply_markup=markup)
                 if chat_id not in users:
                     users.append(chat_id)
                     # Aqui haveria uma parte de persistência do chat_id, assumindo que o user deseja receber as notificações
-            elif '/almoco' in command or '/janta' in command:
-                send_menu(chat_id, command[1:])
+            elif 'almoco' in command.lower().replace('ç', 'c') or 'janta' in command.lower():  # TA para entrada pelos botões customizados
+                send_menu(chat_id, command.lower().replace('ç', 'c').replace('/', '')[command.rfind(':')+1:].strip())
             else:
                 send_message(chat_id, ':disappointed_relieved: Desculpe, não entendi o que você me falou.')
         else:  # Caso seja enviado mensagens de tipos diferentes de 'text'
@@ -44,7 +45,7 @@ def send_menu(chat_id, typeof):
         send_message(chat_id, ':sweat_smile: Desculpe mas não tem cardápio pra mostrar hoje, ou o site esta fora do ar? :thinking_face:')
     else:
         default = ' \n:heavy_exclamation_mark: Contém LEITE/LACTOSE\n:bangbang: Contém GLÚTEN'
-        text = f':fork_and_knife_with_plate: *{typeof.upper()} ({get_date()}):*\n'
+        text = f':fork_and_knife_with_plate: *{typeof.upper().replace("C", "Ç")} ({get_date()}):*\n'
         for k, v in dishes[typeof].items():
             text += f'{k}: *{v}*.\n'.replace(' /*', '*').replace('*/ ', '*')
         send_message(chat_id, text + default, button)
