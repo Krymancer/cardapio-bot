@@ -7,12 +7,6 @@ from emoji import emojize, demojize
 
 users = []
 
-# A Fazeres:
-# - Colocar os botões de ações do bot na conversa.
-# - Novas features: como por exemplo notificação automatizada.
-# - Corrigir problema de fim de semana
-
-
 def on_chat_message(msg):
     content_type, chat_type, chat_id = glance(msg)
     try:
