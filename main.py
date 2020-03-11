@@ -60,7 +60,7 @@ def send_message(chat_id, text, markup=None, action=True):  # Função de envio 
 
 button = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Confira no site.', url='http://www.sobral.ufc.br/ru/cardapio/')]])
 
-bot = Bot(API_KEY_TelegramBot)
+bot = Bot(process.env.API_KEY_TelegramBot)
 MessageLoop(bot, on_chat_message).run_as_thread()
 
 # print(bot.getMe())
