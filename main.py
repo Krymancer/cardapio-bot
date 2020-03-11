@@ -23,14 +23,16 @@ def on_chat_message(msg):
                 users.append(chat_id)
 
             command = msg['text']
-            if 'start' in command or 'help' in command:  # Resposta de ajuda
+            command = demojize(command)
+
+            if '/start' in command or '/help' in command:  # Resposta de ajuda
                 markup = ReplyKeyboardMarkup(keyboard=[[emojize(':spaghetti: Almoço', use_aliases=True), emojize(':stew: Janta', use_aliases=True)]])
-                send_message(chat_id, f'Olá {msg["from"]["first_name"]}, *seja bem vido*! :thumbsup:', reply_markup=markup)
+                send_message(chat_id, f'Olá {msg["from"]["first_name"]}, *seja bem vido*! :thumbsup:', markup=markup)
                 if chat_id not in users:
                     users.append(chat_id)
                     # Aqui haveria uma parte de persistência do chat_id, assumindo que o user deseja receber as notificações
             elif 'almoco' in command.lower().replace('ç', 'c') or 'janta' in command.lower():  # TA para entrada pelos botões customizados
-                send_menu(chat_id, command.lower().replace('ç', 'c').replace('/', '')[command.rfind(':')+1:].strip())
+                send_menu(chat_id, demojize(command).lower().replace('ç', 'c').replace('/', '')[command.rfind(':')+1:].strip())
             else:
                 send_message(chat_id, ':disappointed_relieved: Desculpe, não entendi o que você me falou.')
         else:  # Caso seja enviado mensagens de tipos diferentes de 'text'
